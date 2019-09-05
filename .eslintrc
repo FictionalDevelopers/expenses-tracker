@@ -1,7 +1,6 @@
 {
   "parser": "babel-eslint",
   "extends": ["prettier", "react"],
-  "eol-last": ["error", "always"],
   "env": {
     "browser": true,
     "node": true
@@ -15,6 +14,7 @@
     }
   },
   "rules": {
+    "eol-last": ["error", "always"],
     "react-hooks/rules-of-hooks": "error",
     "react-hooks/exhaustive-deps": "warn"
   }
