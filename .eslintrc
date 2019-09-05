@@ -1,13 +1,21 @@
 {
   "parser": "babel-eslint",
-  "extends": "react",
+  "extends": ["prettier", "react"],
+  "eol-last": ["error", "always"],
   "env": {
     "browser": true,
     "node": true
   },
+  "plugins": [
+    "react-hooks"
+  ],
   "settings": {
     "react": {
       "version": "detect"
     }
+  },
+  "rules": {
+    "react-hooks/rules-of-hooks": "error",
+    "react-hooks/exhaustive-deps": "warn"
   }
 }
