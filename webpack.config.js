@@ -10,6 +10,7 @@ module.exports = {
     },
     devServer: {
         contentBase: "./build",
+        hot: true
     },
     module: {
         rules: [
