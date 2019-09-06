@@ -2,6 +2,7 @@ const path = require('path');
 const HtmlWebpackPlugin = require('html-webpack-plugin');
 
 module.exports = {
+    mode: 'development',
     entry: './src/index.js',
     output: {
         path: path.resolve(__dirname, 'build'),
@@ -10,7 +11,8 @@ module.exports = {
     },
     devServer: {
         contentBase: "./build",
-        hot: true
+        hot: true,
+        open: true
     },
     module: {
         rules: [

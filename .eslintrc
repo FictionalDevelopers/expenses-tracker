@@ -1,11 +1,13 @@
 {
   "parser": "babel-eslint",
-  "extends": ["prettier", "react"],
+  "extends": ["airbnb-base" , "plugin:react/all", "prettier", "prettier/react"],
   "env": {
     "browser": true,
     "node": true
   },
   "plugins": [
+    "react",
+    "prettier",
     "react-hooks"
   ],
   "settings": {
@@ -15,6 +17,9 @@
   },
   "rules": {
     "eol-last": ["error", "always"],
+    "react/require-optimization": 0,
+    "react/jsx-no-literals": 0,
+    "react/jsx-filename-extension": 0,
     "react-hooks/rules-of-hooks": "error",
     "react-hooks/exhaustive-deps": "warn"
   }
