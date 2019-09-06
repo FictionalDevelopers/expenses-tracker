@@ -7,12 +7,12 @@ module.exports = {
     output: {
         path: path.resolve(__dirname, 'build'),
         publicPath: '/',
-        filename: 'bundle.js'
+        filename: 'bundle.js',
     },
     devServer: {
         contentBase: "./build",
         hot: true,
-        open: true
+        open: true,
     },
     module: {
         rules: [
@@ -21,11 +21,11 @@ module.exports = {
                 exclude: /node_modules/,
                 use: ['babel-loader', 'eslint-loader']
             },
-        ]
+        ],
     },
     plugins: [
         new HtmlWebpackPlugin({
             template:  path.resolve('./index.html'),
         }),
-    ]
+    ],
 };
