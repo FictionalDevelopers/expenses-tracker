@@ -8,7 +8,7 @@
     "client": "webpack-dev-server --config webpack.client.dev.js",
     "eslint-fix": "eslint --fix \"src/**/*.js\"",
     "format": "prettier --write \"src/**/*.js\"",
-    "server": "webpack --config webpack.server.dev.js && dist/index.js"
+    "server": "webpack --config webpack.server.dev.js && server/index.js"
   },
   "repository": {
     "type": "git",
