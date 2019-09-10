@@ -3,8 +3,9 @@ import http from 'http';
 import morgan from 'morgan';
 import mongoose from 'mongoose';
 import path from 'path';
+import { config } from 'dotenv';
 
-require('dotenv').config()
+config();
 
 const { DB_PORT, DB_NAME, PORT } = process.env;
 const DIST_DIR = path.join(__dirname, '../dist');
