@@ -4,10 +4,11 @@
   "description": "",
   "main": "index.js",
   "scripts": {
-    "start": "webpack-dev-server --config webpack.client.dev.js",
-    "format": "prettier --write \"src/**/*.js\"",
+    "dev": "concurrently \"npm run server\" \"npm run client\"",
+    "client": "webpack-dev-server --config webpack.client.dev.js",
     "eslint-fix": "eslint --fix \"src/**/*.js\"",
-    "build": "webpack --mode production"
+    "format": "prettier --write \"src/**/*.js\"",
+    "server": "webpack --config webpack.server.dev.js && dist/index.js"
   },
   "repository": {
     "type": "git",
@@ -21,9 +22,15 @@
   },
   "homepage": "https://github.com/FictionalDevelopers/expenses-tracker#readme",
   "dependencies": {
+    "concurrently": "^4.1.2",
+    "dotenv": "^8.1.0",
+    "express": "^4.17.1",
+    "html-webpack-plugin": "^3.2.0",
+    "mongoose": "^5.6.13",
+    "morgan": "^1.9.1",
+    "nodemon-webpack-plugin": "^4.1.1",
     "react": "^16.9.0",
-    "react-dom": "^16.9.0",
-    "html-webpack-plugin": "^3.2.0"
+    "react-dom": "^16.9.0"
   },
   "devDependencies": {
     "@babel/core": "^7.5.5",
@@ -40,6 +47,7 @@
     "eslint-plugin-prettier": "^3.1.0",
     "eslint-plugin-react": "^7.14.3",
     "eslint-plugin-react-hooks": "^2.0.1",
+    "nodemon": "^1.19.2",
     "prettier": "^1.18.2",
     "webpack": "^4.39.3",
     "webpack-cli": "^3.3.7",
