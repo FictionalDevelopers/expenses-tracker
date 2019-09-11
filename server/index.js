@@ -25,4 +25,4 @@ app.get('/', (req, res) => {
     res.sendFile(HTML_FILE);
 });
 
-app.listen(port, () => console.log('Example app listening on port 8080!'));
+app.listen(port, () => console.log('Listening on port 8080'));
