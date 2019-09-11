@@ -22,7 +22,7 @@ mongoose
     .catch(err => console.log(err));
 
 app.get('/', (req, res) => {
-    res.sendFile(HTML_FILE);
+    res.status(200).send('root route');
 });
 
 app.listen(port, () => console.log(`Listening on port ${PORT}`));
