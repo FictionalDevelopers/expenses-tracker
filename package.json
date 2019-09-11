@@ -8,7 +8,7 @@
     "client": "webpack-dev-server --config webpack.client.dev.js",
     "eslint-fix": "eslint --fix \"src/**/*.js\"",
     "format": "prettier --write \"src/**/*.js\"",
-    "server": "webpack --config webpack.server.dev.js && server/index.js"
+    "server": "webpack --config webpack.server.dev.js"
   },
   "repository": {
     "type": "git",
@@ -30,7 +30,8 @@
     "morgan": "^1.9.1",
     "nodemon-webpack-plugin": "^4.1.1",
     "react": "^16.9.0",
-    "react-dom": "^16.9.0"
+    "react-dom": "^16.9.0",
+    "webpack-node-externals": "^1.7.2"
   },
   "devDependencies": {
     "@babel/core": "^7.5.5",

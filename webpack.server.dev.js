@@ -1,5 +1,6 @@
 const path = require('path');
 const NodemonPlugin = require('nodemon-webpack-plugin');
+const nodeExternals = require('webpack-node-externals');
 
 module.exports = {
     mode: 'development',
@@ -13,7 +14,7 @@ module.exports = {
     module: {
         rules: [
             {
-                test: /\.(js|jsx)$/,
+                test: /\.jsx?$/,
                 exclude: /node_modules/,
                 use: ['babel-loader', 'eslint-loader'],
             },
@@ -22,4 +23,5 @@ module.exports = {
     plugins: [
         new NodemonPlugin(),
     ],
+    externals: [nodeExternals()],
 };
