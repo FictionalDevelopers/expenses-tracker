@@ -1,22 +1,33 @@
-import React, {Component} from 'react';
+import React from 'react';
 import {connect} from 'react-redux';
-import {login} from '../../state/auth/actions'
+import PropTypes from 'prop-types';
+import {login} from '../../state/auth/actions';
 
-class Login extends Component {
+const propTypes = {
+    // history: PropTypes.func.isRequired,
+    login: PropTypes.func.isRequired,
+};
 
-    render() {
-        return (
-            <div>
-                Login route
-                <button onClick={this.props.login}>login</button>
-            </div>
-        );
-    }
+const Login = props => {
+    const handleLogin = () => {
+        const {login, history} = props;
+        login()
+        // history.push('/')
+    };
+
+    return (
+        <div>
+            Login route
+            <button onClick={handleLogin}>login</button>
+        </div>
+    );
 };
 
 const mapDispatchToProps = {
     login
-}
+};
+
+Login.propTypes = propTypes;
 
 export default connect(
     null,
