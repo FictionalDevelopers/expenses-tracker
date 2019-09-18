@@ -3,10 +3,6 @@ import {connect} from 'react-redux';
 import {login} from '../../state/auth/actions'
 
 class Login extends Component {
-    handleClick = () => {
-        console.log('ffff', this.props)
-        console.log('click')
-    }
 
     render() {
         return (
@@ -18,19 +14,11 @@ class Login extends Component {
     }
 };
 
-// const mapDispatchToProps = {
-//     login,
-// }
-
-const mapDispatchToProps = (dispatch) => {
-    return {
-        login: () => dispatch({type: "SIGN_IN"})
-    }
+const mapDispatchToProps = {
+    login
 }
 
 export default connect(
     null,
     mapDispatchToProps
 )(Login);
-
-// export default Login;
