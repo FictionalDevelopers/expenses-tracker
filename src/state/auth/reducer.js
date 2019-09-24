@@ -5,29 +5,19 @@ const initialState = {
     isLoggedIn: false,
 };
 
-const onSignIn = {
-    [types.SIGN_IN] : (state, action) => {
-        return {
-            ...state,
-            isLoggedIn: true,
-        };
-    },
-};
+const onSignIn = state => ({
+    ...state,
+    isLoggedIn: true,
+});
 
-const onLogOut = {
-    [types.LOG_OUT] : (state, action) => {
-        return {
-            ...state,
-            isLoggedIn: false,
-        };
-    },
-};
+const onLogOut = state => ({
+    ...state,
+    isLoggedIn: false,
+});
 
 const handlers = {
-    onSignIn,
-    onLogOut,
+    [types.SIGN_IN] : onSignIn,
+    [types.LOG_OUT] : onLogOut,
 };
 
-const authReducer = createReducer(initialState, handlers)
-
-export default authReducer;
+export default createReducer(initialState, handlers)
