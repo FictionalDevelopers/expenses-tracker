@@ -1,24 +1,23 @@
 import React from 'react';
 import {connect} from 'react-redux';
 import PropTypes from 'prop-types';
+import Button from '@material-ui/core/Button';
 import {login} from '../../state/auth/actions';
 
 const propTypes = {
-    // history: PropTypes.func.isRequired,
     login: PropTypes.func.isRequired,
 };
 
 const Login = props => {
     const handleLogin = () => {
-        const {login, history} = props;
+        const {login} = props;
         login()
-        // history.push('/')
     };
 
     return (
         <div>
-            Login route
-            <button onClick={handleLogin}>login</button>
+            <h1>Login route</h1>
+            <Button variant="contained" color="primary" onClick={handleLogin}>login</Button>
         </div>
     );
 };

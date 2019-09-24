@@ -1,24 +1,23 @@
 import React from 'react';
 import {connect} from 'react-redux';
 import PropTypes from "prop-types";
+import Button from '@material-ui/core/Button';
 import {logout} from '../../state/auth/actions'
 
 const propTypes = {
-    // history: PropTypes.func.isRequired,
     logout: PropTypes.func.isRequired,
 };
 
 const Root = props => {
     const handleLogout = () => {
-        const {logout, history} = props;
+        const {logout} = props;
         logout();
-        // history.push('/login')
-    }
+    };
 
     return (
         <div>
-            Rout route
-            <button onClick={handleLogout}>logout</button>
+            <h1>Rout route</h1>
+            <Button variant="contained" color="primary" onClick={handleLogout}>logout</Button>
         </div>
     );
 };

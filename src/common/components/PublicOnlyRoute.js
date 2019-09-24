@@ -1,6 +1,7 @@
 import React from 'react';
 import PropTypes from 'prop-types';
 import { Redirect, Route } from 'react-router-dom';
+import {connect} from "react-redux";
 
 const propTypes = {
     isLoggedIn: PropTypes.bool.isRequired,
@@ -19,7 +20,11 @@ const PublicOnlyRoute = props => {
     return <Route {...props} />;
 };
 
+const mapStateToProps = state => ({
+    isLoggedIn: state.auth.isLoggedIn,
+})
+
 PublicOnlyRoute.propTypes = propTypes;
 PublicOnlyRoute.defaultProps = defaultProps;
 
-export default PublicOnlyRoute;
+export default connect(mapStateToProps)(PublicOnlyRoute);
