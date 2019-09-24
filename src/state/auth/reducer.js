@@ -1,24 +1,33 @@
 import * as types from "./types";
+import createReducer from "../utils/createReducer";
 
 const initialState = {
     isLoggedIn: false,
 };
 
-export default function authReducer(state = initialState, action) {
-    switch (action.type) {
-        case types.SIGN_IN:
-            return {
-                ...state,
-                isLoggedIn: true,
-            };
-        case types.LOG_OUT:
-            return {
-                ...state,
-                isLoggedIn: false,
-            };
-        default:
-            return state;
-    }
-}
+const onSignIn = {
+    [types.SIGN_IN] : (state, action) => {
+        return {
+            ...state,
+            isLoggedIn: true,
+        };
+    },
+};
 
-// export default authReducer;
+const onLogOut = {
+    [types.LOG_OUT] : (state, action) => {
+        return {
+            ...state,
+            isLoggedIn: false,
+        };
+    },
+};
+
+const handlers = {
+    onSignIn,
+    onLogOut,
+};
+
+const authReducer = createReducer(initialState, handlers)
+
+export default authReducer;

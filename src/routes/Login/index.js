@@ -9,26 +9,19 @@ const propTypes = {
 };
 
 const Login = props => {
-    const handleLogin = () => {
-        const {login} = props;
-        login()
-    };
+    const {login} = props;
 
     return (
         <div>
             <h1>Login route</h1>
-            <Button variant="contained" color="primary" onClick={handleLogin}>login</Button>
+            <Button color="primary" onClick={login} variant="contained">login</Button>
         </div>
     );
-};
-
-const mapDispatchToProps = {
-    login
 };
 
 Login.propTypes = propTypes;
 
 export default connect(
     null,
-    mapDispatchToProps
+    {login}
 )(Login);

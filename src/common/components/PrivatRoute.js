@@ -4,7 +4,6 @@ import { Redirect, Route } from 'react-router-dom';
 import {connect} from 'react-redux'
 
 const propTypes = {
-    component: PropTypes.func.isRequired,
     isLoggedIn: PropTypes.bool.isRequired,
     redirectTo: PropTypes.string,
 };
@@ -14,24 +13,17 @@ const defaultProps = {
 };
 
 const PrivateRoute = props => {
-    const {isLoggedIn, redirectTo, component: Component} = props;
+    const {isLoggedIn, redirectTo} = props;
 
     if (!isLoggedIn) {
         return <Redirect to={redirectTo} />;
     }
 
-    return (
-        <Route
-            {...props}
-            render={() => (
-                <Component {...props} />
-            )}
-        />
-    );
+    return <Route {...props} />;
 };
 
 const mapStateToProps = state => ({
-    isLoggedIn: state.auth.isLoggedIn
+    isLoggedIn: state.auth.isLoggedIn,
 })
 
 PrivateRoute.propTypes = propTypes;

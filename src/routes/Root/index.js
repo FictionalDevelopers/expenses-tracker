@@ -9,26 +9,19 @@ const propTypes = {
 };
 
 const Root = props => {
-    const handleLogout = () => {
-        const {logout} = props;
-        logout();
-    };
+    const {logout} = props;
 
     return (
         <div>
             <h1>Rout route</h1>
-            <Button variant="contained" color="primary" onClick={handleLogout}>logout</Button>
+            <Button color="primary" onClick={logout} variant="contained">logout</Button>
         </div>
     );
-};
-
-const mapDispatchToProps = {
-    logout
 };
 
 Root.propTypes = propTypes;
 
 export default connect(
     null,
-    mapDispatchToProps
+    {logout}
 )(Root);

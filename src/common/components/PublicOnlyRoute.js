@@ -7,6 +7,7 @@ const propTypes = {
     isLoggedIn: PropTypes.bool.isRequired,
     redirectTo: PropTypes.string,
 };
+
 const defaultProps = {
     redirectTo: '/',
 };
@@ -22,7 +23,7 @@ const PublicOnlyRoute = props => {
 
 const mapStateToProps = state => ({
     isLoggedIn: state.auth.isLoggedIn,
-})
+});
 
 PublicOnlyRoute.propTypes = propTypes;
 PublicOnlyRoute.defaultProps = defaultProps;

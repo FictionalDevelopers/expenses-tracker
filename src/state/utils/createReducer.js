@@ -1,4 +1,6 @@
-export default initialState => reducerMap => (state = initialState, action) => {
-  const reducer = reducerMap[action.type];
-  return reducer ? reducer(state, action) : state;
+export default (initialState, handlers) => {
+  return (state = initialState, action) => {
+    const handler = handlers[action.type];
+    return handler ? handler(state, action) : state;
+  }
 };
