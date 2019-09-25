@@ -6,7 +6,7 @@
   "scripts": {
     "dev": "concurrently \"npm run server\" \"npm run client\"",
     "client": "webpack-dev-server --config webpack.client.dev.js",
-    "eslint-fix": "eslint --fix \"src/**/*.js\"",
+    "eslint-fix": "eslint --fix \"src/**/*.js\" && eslint --fix \"server/**/*.js\"",
     "format": "prettier --write \"src/**/*.js\"",
     "server": "webpack --config webpack.server.dev.js"
   },
@@ -53,6 +53,7 @@
   },
   "devDependencies": {
     "@babel/core": "^7.5.5",
+    "@babel/polyfill": "^7.6.0",
     "@babel/preset-env": "^7.5.5",
     "@babel/preset-react": "^7.0.0",
     "babel-eslint": "^10.0.3",
