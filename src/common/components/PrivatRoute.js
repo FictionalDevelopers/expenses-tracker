@@ -12,9 +12,7 @@ const defaultProps = {
   redirectTo: '/login',
 };
 
-const PrivateRoute = props => {
-  const { isLoggedIn, redirectTo } = props;
-
+const PrivateRoute = ({ isLoggedIn, redirectTo, ...props }) => {
   if (!isLoggedIn) {
     return <Redirect to={redirectTo} />;
   }

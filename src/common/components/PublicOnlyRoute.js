@@ -12,8 +12,7 @@ const defaultProps = {
   redirectTo: '/',
 };
 
-const PublicOnlyRoute = props => {
-  const { isLoggedIn, redirectTo } = props;
+const PublicOnlyRoute = ({ isLoggedIn, redirectTo, ...props }) => {
   if (isLoggedIn) {
     return <Redirect to={redirectTo} />;
   }
