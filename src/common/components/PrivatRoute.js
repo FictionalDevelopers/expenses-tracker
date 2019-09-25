@@ -1,30 +1,30 @@
 import React from 'react';
 import PropTypes from 'prop-types';
 import { Redirect, Route } from 'react-router-dom';
-import {connect} from 'react-redux'
+import { connect } from 'react-redux';
 
 const propTypes = {
-    isLoggedIn: PropTypes.bool.isRequired,
-    redirectTo: PropTypes.string,
+  isLoggedIn: PropTypes.bool.isRequired,
+  redirectTo: PropTypes.string,
 };
 
 const defaultProps = {
-    redirectTo: '/login',
+  redirectTo: '/login',
 };
 
 const PrivateRoute = props => {
-    const {isLoggedIn, redirectTo} = props;
+  const { isLoggedIn, redirectTo } = props;
 
-    if (!isLoggedIn) {
-        return <Redirect to={redirectTo} />;
-    }
+  if (!isLoggedIn) {
+    return <Redirect to={redirectTo} />;
+  }
 
-    return <Route {...props} />;
+  return <Route {...props} />;
 };
 
 const mapStateToProps = state => ({
-    isLoggedIn: state.auth.isLoggedIn,
-})
+  isLoggedIn: state.auth.isLoggedIn,
+});
 
 PrivateRoute.propTypes = propTypes;
 PrivateRoute.defaultProps = defaultProps;

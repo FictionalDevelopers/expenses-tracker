@@ -1,6 +1,6 @@
 {
   "parser": "babel-eslint",
-  "extends": ["airbnb-base" , "plugin:react/all", "prettier", "prettier/react"],
+  "extends": ["airbnb-base" , "plugin:react/all", "plugin:prettier/recommended", "prettier", "prettier/react"],
   "env": {
     "browser": true,
     "node": true
@@ -18,11 +18,13 @@
   "rules": {
     "comma-dangle": ["error", "always-multiline"],
     "eol-last": ["error", "always"],
+    "import/prefer-default-export": 0,
     "react/require-optimization": 0,
     "react/jsx-no-literals": 0,
     "react/jsx-filename-extension": 0,
     "react-hooks/rules-of-hooks": "error",
     "react-hooks/exhaustive-deps": "warn",
+    "react/jsx-props-no-spreading": 0,
     "no-shadow": 0
   }
 }
