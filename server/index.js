@@ -1,10 +1,12 @@
 import express, { json } from 'express';
 import morgan from 'morgan';
-import { config } from 'dotenv';
+import { load } from 'dotenv-extended';
 import apiRoutes from './routes/api';
-import dbConnection from './db';
+import createDbConnection from './db';
 
-config();
+load({
+  errorOnMissing: true,
+});
 
 const { PORT } = process.env;
 const app = express();
@@ -14,7 +16,7 @@ app.use(morgan('dev'));
 
 app.use(json());
 
-dbConnection();
+createDbConnection();
 
 app.use('/api', apiRoutes);
 
