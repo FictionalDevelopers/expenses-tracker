@@ -1,12 +1,11 @@
 import UserModel from '../models/User';
-import { saltHashPassword } from '../utils/user';
+import { genRandomString, getHmac } from '../utils/hash';
 
-export const createUser = (email, password) => {
-  const { passwordHash, passwordSalt } = saltHashPassword(password);
+const { DB_SALT } = process.env;
 
-  return UserModel.create({
+export const createUser = (email, password) =>
+  UserModel.create({
     email,
-    passwordHash,
-    passwordSalt,
+    passwordHash: getHmac(password, genRandomString(32) + DB_SALT),
+    passwordSalt: genRandomString(32),
   });
-};
