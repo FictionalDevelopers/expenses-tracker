@@ -12,11 +12,11 @@ const { PORT } = process.env;
 const app = express();
 const port = PORT || 3000;
 
+createDbConnection();
+
 app.use(morgan('dev'));
 
 app.use(json());
-
-createDbConnection();
 
 app.use('/api', apiRoutes);
 
