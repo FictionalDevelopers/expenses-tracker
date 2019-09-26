@@ -1,8 +1,8 @@
 import express, { json } from 'express';
 import morgan from 'morgan';
-import mongoose from 'mongoose';
 import { config } from 'dotenv';
 import apiRoutes from './routes/api';
+import dbConnection from './db';
 
 config();
 
@@ -15,10 +15,7 @@ app.use(morgan('dev'));
 
 app.use(json());
 
-mongoose
-  .connect(url, { useNewUrlParser: true })
-  .then(() => console.log('Mongo connected'))
-  .catch(err => console.log(err));
+dbConnection(url);
 
 app.use('/api', apiRoutes);
 
