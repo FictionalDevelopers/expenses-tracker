@@ -1,5 +1,10 @@
 import { randomBytes, createHmac } from 'crypto';
+import { config } from 'dotenv';
 import UserModel from '../models/User';
+
+config();
+
+const { DB_SALT } = process.env;
 
 const genRandomString = length =>
   randomBytes(Math.ceil(length / 2))
@@ -18,7 +23,7 @@ const sha512 = (password, salt) => {
 };
 
 export const saltHashPassword = password => {
-  const salt = genRandomString(8);
+  const salt = genRandomString(8) + DB_SALT;
 
   return sha512(password, salt);
 };

@@ -6,16 +6,15 @@ import dbConnection from './db';
 
 config();
 
-const { DB_PORT, DB_NAME, PORT } = process.env;
+const { PORT } = process.env;
 const app = express();
-const url = `mongodb://localhost:${DB_PORT}/${DB_NAME}`;
 const port = PORT || 3000;
 
 app.use(morgan('dev'));
 
 app.use(json());
 
-dbConnection(url);
+dbConnection();
 
 app.use('/api', apiRoutes);
 
