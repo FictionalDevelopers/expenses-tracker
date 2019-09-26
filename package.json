@@ -4,7 +4,7 @@
   "description": "",
   "main": "index.js",
   "scripts": {
-    "dev": "concurrently \"npm run server\" \"npm run client\"",
+    "dev": "concurrently \"yarn run server\" \"yarn run client\"",
     "client": "webpack-dev-server --config webpack.client.dev.js",
     "eslint-fix": "eslint --fix \"src/**/*.js\" && eslint --fix \"server/**/*.js\"",
     "format": "prettier --write \"src/**/*.js\"",
