@@ -1,26 +1,23 @@
 import express, { json } from 'express';
 import morgan from 'morgan';
-import mongoose from 'mongoose';
-import { config } from 'dotenv';
+import { load } from 'dotenv-extended';
+import apiRoutes from './routes/api';
+import createDbConnection from './db';
 
-config();
+load({
+  errorOnMissing: true,
+});
 
-const { DB_PORT, DB_NAME, PORT } = process.env;
+const { PORT } = process.env;
 const app = express();
-const url = `mongodb://localhost:${DB_PORT}/${DB_NAME}`;
 const port = PORT || 3000;
+
+createDbConnection();
 
 app.use(morgan('dev'));
 
 app.use(json());
 
-mongoose
-    .connect(url, {useNewUrlParser: true})
-    .then(() => console.log("Mongo connected"))
-    .catch(err => console.log(err));
-
-app.get('/', (req, res) => {
-    res.status(200).send('root route');
-});
+app.use('/api', apiRoutes);
 
 app.listen(port, () => console.log(`Listening on port ${PORT}`));
