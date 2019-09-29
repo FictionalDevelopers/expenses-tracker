@@ -1,7 +1,4 @@
 import { sign } from 'jsonwebtoken';
-import loadEnv from '../utils/env';
-
-loadEnv();
 
 const { TOKEN_SECRET } = process.env;
 

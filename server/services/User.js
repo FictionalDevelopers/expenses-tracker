@@ -1,8 +1,5 @@
 import UserModel from '../models/User';
 import { genRandomString, getHmac } from '../utils/hash';
-import loadEnv from '../utils/env';
-
-loadEnv();
 
 const { DB_SALT } = process.env;
 

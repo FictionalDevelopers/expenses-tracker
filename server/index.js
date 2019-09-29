@@ -2,12 +2,10 @@ import express, { json } from 'express';
 import morgan from 'morgan';
 import cookieParser from 'cookie-parser';
 import apiRoutes from './routes/api';
-import loadEnv from './utils/env';
+import env from './utils/env';
 import createDbConnection from './db';
 
-loadEnv();
-
-const { PORT, COOKIE_NAME } = process.env;
+const { PORT, COOKIE_NAME } = env;
 const app = express();
 const port = PORT || 3000;
 

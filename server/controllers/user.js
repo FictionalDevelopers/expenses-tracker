@@ -1,9 +1,6 @@
 import { validationResult } from 'express-validator';
 import { createUser } from '../services/User';
 import { createToken } from '../services/Auth';
-import loadEnv from '../utils/env';
-
-loadEnv();
 
 const { COOKIE_NAME } = process.env;
 
