@@ -1,7 +1,13 @@
 import UserModel from '../models/User';
 import { genRandomString, getHmac } from '../utils/hash';
+import loadEnv from '../utils/env';
+
+loadEnv();
 
 const { DB_SALT } = process.env;
+
+export const isEmailTaken = async email =>
+  (await UserModel.findOne({ email })) !== null;
 
 export const createUser = (email, password) => {
   const salt = genRandomString(32);

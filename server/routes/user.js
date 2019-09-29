@@ -1,13 +1,9 @@
 import { Router } from 'express';
-import { createUser } from '../services/User';
+import { validateUser } from '../validation/auth';
+import { create } from '../controllers/user';
 
 const router = Router();
 
-router.post('/register', async (req, res) => {
-  const { email, password } = req.body;
-  const user = await createUser(email, password);
-
-  return res.json(user);
-});
+router.post('/register', validateUser(), create);
 
 export default router;
