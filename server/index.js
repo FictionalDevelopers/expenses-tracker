@@ -1,8 +1,8 @@
 import express, { json } from 'express';
 import morgan from 'morgan';
 import cookieParser from 'cookie-parser';
-import apiRoutes from './routes/api';
 import env from './utils/env';
+import apiRoutes from './routes/api';
 import createDbConnection from './db';
 
 const { PORT, TOKEN_COOKIE_NAME } = env;
