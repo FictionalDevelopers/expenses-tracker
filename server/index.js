@@ -5,14 +5,14 @@ import apiRoutes from './routes/api';
 import env from './utils/env';
 import createDbConnection from './db';
 
-const { PORT, COOKIE_NAME } = env;
+const { PORT, TOKEN_COOKIE_NAME } = env;
 const app = express();
 const port = PORT || 3000;
 
 createDbConnection();
 
 app.use(morgan('dev'));
-app.use(cookieParser(COOKIE_NAME));
+app.use(cookieParser(TOKEN_COOKIE_NAME));
 app.use(json());
 app.use('/api', apiRoutes);
 
