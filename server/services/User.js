@@ -15,3 +15,25 @@ export const createUser = (email, password) => {
     passwordSalt: salt,
   });
 };
+
+const isPasswordSame = (pass, encryptedPass, salt) => {
+  const passwordHash = getHmac(pass, salt + DB_SALT);
+
+  return passwordHash === encryptedPass;
+};
+
+export const getUser = (email, password) => {
+  return UserModel.findOne({ email }, (err, user) => {
+    if (!user) {
+      throw new Error('User not found');
+    }
+
+    const isPasswordValid = isPasswordSame(
+      password,
+      user.passwordHash,
+      user.passwordSalt
+    );
+
+    return isPasswordValid ? user : null;
+  });
+};
