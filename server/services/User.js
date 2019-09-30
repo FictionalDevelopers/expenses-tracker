@@ -16,24 +16,10 @@ export const createUser = (email, password) => {
   });
 };
 
-const isPasswordSame = (pass, encryptedPass, salt) => {
+export const isPasswordSame = (pass, encryptedPass, salt) => {
   const passwordHash = getHmac(pass, salt + DB_SALT);
 
   return passwordHash === encryptedPass;
 };
 
-export const getUser = (email, password) => {
-  return UserModel.findOne({ email }, (err, user) => {
-    if (!user) {
-      throw new Error('User not found');
-    }
-
-    const isPasswordValid = isPasswordSame(
-      password,
-      user.passwordHash,
-      user.passwordSalt
-    );
-
-    return isPasswordValid ? user : null;
-  });
-};
+export const getUser = async email => UserModel.findOne({ email });

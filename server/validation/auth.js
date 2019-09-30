@@ -1,5 +1,4 @@
 import { body } from 'express-validator';
-import { isEmailTaken } from '../services/User';
 
 const validatePassword = () =>
   body('password')
@@ -17,11 +16,6 @@ const validateEmail = () =>
     })
     .withMessage('Email is required field')
     .isEmail()
-    .withMessage('Invalid email')
-    .custom(async email => {
-      if (await isEmailTaken(email)) {
-        throw new Error('This email is taken');
-      }
-    });
+    .withMessage('Invalid email');
 
 export const validateUser = () => [validatePassword(), validateEmail()];
