@@ -1,5 +1,5 @@
 import { validationResult } from 'express-validator';
-import { createUser } from '../services/User';
+import { createUser, sendConfirmationEmail } from '../services/User';
 import { createToken } from '../services/Auth';
 
 const { TOKEN_COOKIE_NAME } = process.env;
@@ -16,6 +16,8 @@ export const create = async (req, res, next) => {
     const token = createToken({ user });
 
     res.cookie(TOKEN_COOKIE_NAME, token, { signed: true, httpOnly: true });
+
+    await sendConfirmationEmail(email);
 
     return res.json(user);
   } catch (e) {
