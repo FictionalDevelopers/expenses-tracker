@@ -1,15 +1,17 @@
 {
   "parser": "babel-eslint",
-  "extends": ["airbnb-base" , "plugin:react/all", "plugin:prettier/recommended", "prettier", "prettier/react"],
+  "extends": [
+    "airbnb-base",
+    "plugin:react/all",
+    "plugin:prettier/recommended",
+    "prettier",
+    "prettier/react"
+  ],
   "env": {
     "browser": true,
     "node": true
   },
-  "plugins": [
-    "react",
-    "prettier",
-    "react-hooks"
-  ],
+  "plugins": ["react", "prettier", "react-hooks"],
   "settings": {
     "react": {
       "version": "detect"
@@ -25,6 +27,8 @@
     "react-hooks/rules-of-hooks": "error",
     "react-hooks/exhaustive-deps": "warn",
     "react/jsx-props-no-spreading": 0,
-    "no-shadow": 0
+    "no-shadow": 0,
+    "react/jsx-max-depth": 0,
+    "react/jsx-sort-props": 0
   }
 }
