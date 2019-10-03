@@ -22,4 +22,4 @@ export const isPasswordSame = (pass, encryptedPass, salt) => {
   return passwordHash === encryptedPass;
 };
 
-export const getUser = async email => UserModel.findOne({ email });
+export const getUserByEmail = email => UserModel.findOne({ email });

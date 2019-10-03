@@ -2,7 +2,7 @@ import { validationResult } from 'express-validator';
 import {
   createUser,
   isEmailTaken,
-  getUser,
+  getUserByEmail,
   isPasswordSame,
 } from '../services/User';
 import { createToken } from '../services/Auth';
@@ -41,10 +41,10 @@ export const create = async (req, res, next) => {
 export const login = async (req, res, next) => {
   try {
     const { email, password } = req.body;
-    const user = await getUser(email);
+    const user = await getUserByEmail(email);
 
     if (!user) {
-      return res.status(400).json({ error: 'Invalid username' });
+      return res.status(400).json({ error: { email: 'Invalid email' } });
     }
 
     const isPasswordValid = isPasswordSame(
@@ -54,7 +54,7 @@ export const login = async (req, res, next) => {
     );
 
     if (!isPasswordValid) {
-      return res.status(400).json({ error: 'Invalid password' });
+      return res.status(400).json({ error: { password: 'Invalid password' } });
     }
 
     const token = createToken({ user });
