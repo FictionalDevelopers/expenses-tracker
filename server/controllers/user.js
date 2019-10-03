@@ -4,6 +4,7 @@ import {
   isEmailTaken,
   getUserByEmail,
   isPasswordSame,
+  // sendConfirmationEmail, // @TODO uncomment once implemented
 } from '../services/User';
 import { createToken } from '../services/Auth';
 import { EXPIRE_TIME } from '../constants/time';
@@ -64,6 +65,9 @@ export const login = async (req, res, next) => {
       httpOnly: true,
       maxAge: EXPIRE_TIME,
     });
+
+    // @TODO uncomment once implemented
+    // await sendConfirmationEmail(email);
 
     return res.json(user);
   } catch (e) {
