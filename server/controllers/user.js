@@ -6,6 +6,7 @@ import {
   isPasswordSame,
 } from '../services/User';
 import { createToken } from '../services/Auth';
+import { EXPIRE_TIME } from '../constants/time';
 
 const { TOKEN_COOKIE_NAME } = process.env;
 
@@ -28,7 +29,7 @@ export const create = async (req, res, next) => {
     res.cookie(TOKEN_COOKIE_NAME, token, {
       signed: true,
       httpOnly: true,
-      expires: 24 * 60 * 60,
+      maxAge: EXPIRE_TIME,
     });
 
     return res.json(user);
@@ -41,11 +42,19 @@ export const login = async (req, res, next) => {
   try {
     const { email, password } = req.body;
     const user = await getUser(email);
-    const isPasswordValid =
-      user && isPasswordSame(password, user.passwordHash, user.passwordSalt);
 
-    if (!user || !isPasswordValid) {
-      return res.status(400).json({ error: 'Invalid username or password' });
+    if (!user) {
+      return res.status(400).json({ error: 'Invalid username' });
+    }
+
+    const isPasswordValid = isPasswordSame(
+      password,
+      user.passwordHash,
+      user.passwordSalt
+    );
+
+    if (!isPasswordValid) {
+      return res.status(400).json({ error: 'Invalid password' });
     }
 
     const token = createToken({ user });
@@ -53,7 +62,7 @@ export const login = async (req, res, next) => {
     res.cookie(TOKEN_COOKIE_NAME, token, {
       signed: true,
       httpOnly: true,
-      expires: 24 * 60 * 60,
+      maxAge: EXPIRE_TIME,
     });
 
     return res.json(user);
