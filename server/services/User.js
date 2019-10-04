@@ -18,6 +18,14 @@ export const createUser = (email, password) => {
   });
 };
 
+export const isPasswordSame = (pass, encryptedPass, salt) => {
+  const passwordHash = getHmac(pass, salt + DB_SALT);
+
+  return passwordHash === encryptedPass;
+};
+
+export const getUserByEmail = email => UserModel.findOne({ email });
+
 export const sendConfirmationEmail = email => {
   return sendUsingTemplate(TEMPLATE_NAMES.EMAIL_CONFIRMATON, {
     to: [{ email }],
