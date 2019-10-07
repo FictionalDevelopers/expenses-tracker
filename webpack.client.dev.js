@@ -1,5 +1,8 @@
 const path = require('path');
 const HtmlWebpackPlugin = require('html-webpack-plugin');
+const { load } = require('dotenv-extended');
+
+const { PORT } = load({ errorOnMissing: true });
 
 module.exports = {
   mode: 'development',
@@ -14,6 +17,9 @@ module.exports = {
     hot: true,
     open: true,
     historyApiFallback: true,
+    proxy: {
+      '/api': `http://localhost:${PORT}`,
+    },
   },
   module: {
     rules: [
