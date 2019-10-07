@@ -1,40 +1,32 @@
-import { TextField } from '@material-ui/core';
-import { makeStyles, withStyles } from '@material-ui/core/styles';
+import { makeStyles } from '@material-ui/core/styles';
+import { purpleTheme } from '../../common/colorThemes/purpleTheme';
 
-import { colors } from '../../common/colors';
+export const theme = purpleTheme;
 
 export const styles = makeStyles(() => ({
+  container: {
+    position: 'relative',
+  },
   form: {
     display: 'flex',
     flexDirection: 'column',
     alignItems: 'center',
     maxWidth: '250px',
-    margin: '0 auto',
+    margin: '5em auto 0',
+    padding: '15px 40px 45px',
+    boxShadow: '0px 3px 9px 0px rgba(148, 146, 148, 0.86)',
+    borderRadius: '3px',
+    color: purpleTheme.palette.text.primary,
   },
-  button: {
-    backgroundColor: colors.primaryBtnBg,
-    color: colors.primaryBtnTextColor,
-    '&:hover': {
-      backgroundColor: colors.primaryBtnBgHover,
+  backBtn: {
+    position: 'absolute',
+    top: '0',
+    left: '1.5em',
+    '& a': {
+      color: purpleTheme.palette.text.primary,
+      '& :hover': {
+        color: '#6d1b7b',
+      },
     },
   },
 }));
-
-export const CssTextField = withStyles({
-  root: {
-    '& label.Mui-focused': {
-      color: colors.primaryColor,
-    },
-    '& .MuiInput-underline:after': {
-      borderBottomColor: colors.primaryInputBorderColor,
-    },
-    '& .MuiOutlinedInput-root': {
-      '&:hover fieldset': {
-        borderColor: colors.primaryColor,
-      },
-      '&.Mui-focused fieldset': {
-        borderColor: colors.primaryInputBorderColor,
-      },
-    },
-  },
-})(TextField);
