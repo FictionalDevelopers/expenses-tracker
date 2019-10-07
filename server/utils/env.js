@@ -1,5 +1,5 @@
-const { load } = require('dotenv-extended');
+import { load } from 'dotenv-extended';
 
-module.exports = load({
+export default load({
   errorOnMissing: true,
 });
