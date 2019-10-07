@@ -1,6 +1,10 @@
 const path = require('path');
 const HtmlWebpackPlugin = require('html-webpack-plugin');
 
+require('./server/utils/env');
+
+const { PORT } = process.env;
+
 module.exports = {
   mode: 'development',
   entry: './src/index.js',
@@ -14,6 +18,9 @@ module.exports = {
     hot: true,
     open: true,
     historyApiFallback: true,
+    proxy: {
+      '/api': `http://localhost:${PORT}`,
+    },
   },
   module: {
     rules: [
