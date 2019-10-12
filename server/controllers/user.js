@@ -89,7 +89,11 @@ export const current = (req, res) => {
     return res.status(401).json({ error: STATUS_CODES[401] });
   }
 
-  const { user } = verifyToken(token);
+  try {
+    const { user } = verifyToken(token);
 
-  return res.json(user);
+    return res.json(user);
+  } catch (e) {
+    return res.status(401).json({ error: STATUS_CODES[401] });
+  }
 };
