@@ -4,6 +4,6 @@ import { purple } from '@material-ui/core/colors';
 export const purpleTheme = createMuiTheme({
   palette: {
     primary: { main: purple[500] },
-    text: { primary: purple[500], secondary: purple[200] },
+    text: { primary: purple[500], hover: '#6d1b7b' },
   },
 });

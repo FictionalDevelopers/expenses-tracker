@@ -30,6 +30,8 @@
     "no-shadow": 0,
     "react/jsx-max-depth": 0,
     "react/jsx-sort-props": 0,
-    "react/jsx-no-bind": 0
+    "react/jsx-no-bind": 0,
+    "react/sort-prop-types": 0,
+    "react/jsx-sort-default-props": 0
   }
 }
