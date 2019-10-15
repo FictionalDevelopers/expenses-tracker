@@ -1,4 +1,5 @@
 import { validationResult } from 'express-validator';
+import { STATUS_CODES } from 'http';
 import {
   createUser,
   isEmailTaken,
@@ -6,7 +7,7 @@ import {
   isPasswordSame,
   // sendConfirmationEmail, // @TODO uncomment once implemented
 } from '../services/User';
-import { createToken } from '../services/Auth';
+import { createToken, verifyToken } from '../services/Auth';
 import { EXPIRE_TIME } from '../constants/time';
 
 const { TOKEN_COOKIE_NAME } = process.env;
@@ -79,4 +80,20 @@ export const logout = (req, res) => {
   res.clearCookie(TOKEN_COOKIE_NAME, { signed: true, httpOnly: true });
 
   return res.json({});
+};
+
+export const current = (req, res) => {
+  const { [TOKEN_COOKIE_NAME]: token } = req.signedCookies;
+
+  if (!token) {
+    return res.status(401).json({ error: STATUS_CODES[401] });
+  }
+
+  try {
+    const { user } = verifyToken(token);
+
+    return res.json(user);
+  } catch (e) {
+    return res.status(401).json({ error: STATUS_CODES[401] });
+  }
 };
