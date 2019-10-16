@@ -2,19 +2,22 @@ import React from 'react';
 import { connect } from 'react-redux';
 import { Link } from 'react-router-dom';
 import { Field, reduxForm } from 'redux-form';
+import PropTypes from 'prop-types';
 import { Button, Typography } from '@material-ui/core';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import { faChevronLeft } from '@fortawesome/free-solid-svg-icons';
 
 import { styles } from './styles';
 import { signUp } from '../../state/auth/actions';
-import validate from './validate';
 import renderTextField from './renderTextField';
+import validate from './validate';
 
-const Registration = () => {
-  console.log(validate);
-
+const Registration = ({ handleSubmit, signUp }) => {
   const styleList = styles();
+
+  const onSubmit = formValues => {
+    signUp(formValues);
+  };
 
   return (
     <div className={styleList.container}>
@@ -23,7 +26,7 @@ const Registration = () => {
           <FontAwesomeIcon icon={faChevronLeft} size="2x" />
         </Link>
       </div>
-      <form className={styleList.form}>
+      <form className={styleList.form} onSubmit={handleSubmit(onSubmit)}>
         <Typography variant="h4">Sign up</Typography>
         <Field
           name="email"
@@ -47,17 +50,22 @@ const Registration = () => {
           component={renderTextField}
         />
         <Button
+          type="submit"
           color="primary"
           fullWidth
           size="large"
           variant="contained"
-          onClick={() => signUp()}
         >
           Sign up
         </Button>
       </form>
     </div>
   );
+};
+
+Registration.propTypes = {
+  handleSubmit: PropTypes.func.isRequired,
+  signUp: PropTypes.func.isRequired,
 };
 
 const formWrapper = reduxForm({ form: 'registrationForm', validate })(
