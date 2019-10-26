@@ -5,10 +5,11 @@ import {
   isEmailTaken,
   getUserByEmail,
   isPasswordSame,
+  sendPasswordResetEmail,
   // sendConfirmationEmail, // @TODO uncomment once implemented
 } from '../services/User';
 import { createToken, verifyToken } from '../services/Auth';
-import { EXPIRE_TIME } from '../constants/time';
+import { EXPIRE_TIME, EXPIRE_PASSWORD_RESET } from '../constants/time';
 
 const { TOKEN_COOKIE_NAME } = process.env;
 
@@ -26,7 +27,7 @@ export const create = async (req, res, next) => {
     }
 
     const user = await createUser(email, password);
-    const token = createToken({ user });
+    const token = createToken({ user }, EXPIRE_TIME);
 
     res.cookie(TOKEN_COOKIE_NAME, token, {
       signed: true,
@@ -59,7 +60,7 @@ export const login = async (req, res, next) => {
       return res.status(400).json({ error: { password: 'Invalid password' } });
     }
 
-    const token = createToken({ user });
+    const token = createToken({ user }, EXPIRE_TIME);
 
     res.cookie(TOKEN_COOKIE_NAME, token, {
       signed: true,
@@ -96,4 +97,19 @@ export const current = (req, res) => {
   } catch (e) {
     return res.status(401).json({ error: STATUS_CODES[401] });
   }
+};
+
+export const resetPassword = async (req, res) => {
+  const { email } = req.body;
+  const user = await getUserByEmail(email);
+
+  if (!user) {
+    return res.status(400).json({ error: { email: 'User not exist' } });
+  }
+
+  const token = createToken({ email }, EXPIRE_PASSWORD_RESET);
+
+  await sendPasswordResetEmail(email, token);
+
+  return res.json({});
 };

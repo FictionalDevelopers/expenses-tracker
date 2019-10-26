@@ -34,3 +34,11 @@ export const sendConfirmationEmail = email => {
     },
   });
 };
+
+export const sendPasswordResetEmail = (email, token) =>
+  sendUsingTemplate(TEMPLATE_NAMES.EMAIL_PASSWORD_RESET, {
+    to: [{ email }],
+    dynamic_template_data: {
+      resetLink: `http://localhost:8080/password-update/${token}`,
+    },
+  });

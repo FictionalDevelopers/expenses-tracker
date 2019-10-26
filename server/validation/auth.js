@@ -1,6 +1,6 @@
 import { body } from 'express-validator';
 
-const validatePassword = () =>
+export const validatePassword = () =>
   body('password')
     .exists({
       checkNull: true,
@@ -8,7 +8,7 @@ const validatePassword = () =>
     })
     .withMessage('Password is required field');
 
-const validateEmail = () =>
+export const validateEmail = () =>
   body('email')
     .exists({
       checkNull: true,
