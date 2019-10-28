@@ -104,7 +104,7 @@ export const resetPassword = async (req, res) => {
   const user = await getUserByEmail(email);
 
   if (!user) {
-    return res.status(400).json({ error: { email: 'User not exist' } });
+    return res.json({});
   }
 
   const token = createToken({ email }, EXPIRE_PASSWORD_RESET);

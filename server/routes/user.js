@@ -1,5 +1,5 @@
 import { Router } from 'express';
-import { validateUser } from '../validation/auth';
+import { validateUser, validateEmail } from '../validation/auth';
 import {
   create,
   login,
@@ -14,6 +14,6 @@ router.post('/register', validateUser(), create);
 router.post('/login', login);
 router.get('/logout', logout);
 router.get('/current', current);
-router.post('/reset-password', resetPassword);
+router.post('/reset-password', validateEmail(), resetPassword);
 
 export default router;

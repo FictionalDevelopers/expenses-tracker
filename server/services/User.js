@@ -1,5 +1,6 @@
 import UserModel from '../models/User';
 import { genRandomString, getHmac } from '../utils/hash';
+import getSiteUrl from '../utils/getSiteUrl';
 
 import { sendUsingTemplate, TEMPLATE_NAMES } from './Mailer';
 
@@ -35,10 +36,13 @@ export const sendConfirmationEmail = email => {
   });
 };
 
-export const sendPasswordResetEmail = (email, token) =>
-  sendUsingTemplate(TEMPLATE_NAMES.EMAIL_PASSWORD_RESET, {
+export const sendPasswordResetEmail = (email, token) => {
+  const url = getSiteUrl();
+
+  return sendUsingTemplate(TEMPLATE_NAMES.EMAIL_PASSWORD_RESET, {
     to: [{ email }],
     dynamic_template_data: {
-      resetLink: `http://localhost:8080/password-update/${token}`,
+      resetLink: `${url}/password-update/${token}`,
     },
   });
+};
