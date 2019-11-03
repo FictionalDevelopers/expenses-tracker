@@ -1,7 +1,6 @@
 import React from 'react';
 import { Switch, BrowserRouter } from 'react-router-dom';
-import Root from './routes/Root';
-import Login from './routes/Login';
+import { Root, Login, Registration } from './routes';
 import PrivateRoute from './common/components/PrivatRoute';
 import PublicOnlyRoute from './common/components/PublicOnlyRoute';
 
@@ -11,6 +10,7 @@ const App = () => {
       <Switch>
         <PrivateRoute component={Root} exact path="/" />
         <PublicOnlyRoute component={Login} exact path="/login" />
+        <PublicOnlyRoute component={Registration} exact path="/registration" />
       </Switch>
     </BrowserRouter>
   );
