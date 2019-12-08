@@ -1,15 +1,9 @@
 import { validationResult } from 'express-validator';
 import { STATUS_CODES } from 'http';
-import {
-  createUser,
-  isEmailTaken,
-  getUserByEmail,
-  isPasswordSame,
-  sendPasswordResetEmail,
-  // sendConfirmationEmail, // @TODO uncomment once implemented
-} from '../services/User';
-import { createToken, verifyToken } from '../services/Auth';
-import { EXPIRE_TIME, EXPIRE_PASSWORD_RESET } from '../constants/time';
+
+import { EXPIRE_TIME, EXPIRE_PASSWORD_RESET } from '@shared/constants/time';
+import { UserService } from '@components/users';
+import { createToken, verifyToken } from './service';
 
 const { TOKEN_COOKIE_NAME } = process.env;
 
@@ -22,11 +16,11 @@ export const create = async (req, res, next) => {
 
     const { email, password } = req.body;
 
-    if (await isEmailTaken(email)) {
+    if (await UserService.isEmailTaken(email)) {
       return res.status(400).json({ error: 'This email is taken' });
     }
 
-    const user = await createUser(email, password);
+    const user = await UserService.createUser(email, password);
     const token = createToken({ user }, EXPIRE_TIME);
 
     res.cookie(TOKEN_COOKIE_NAME, token, {
@@ -44,16 +38,16 @@ export const create = async (req, res, next) => {
 export const login = async (req, res, next) => {
   try {
     const { email, password } = req.body;
-    const user = await getUserByEmail(email);
+    const user = await UserService.getUserByEmail(email);
 
     if (!user) {
       return res.status(400).json({ error: { email: 'Invalid email' } });
     }
 
-    const isPasswordValid = isPasswordSame(
+    const isPasswordValid = UserService.isPasswordSame(
       password,
       user.passwordHash,
-      user.passwordSalt
+      user.passwordSalt,
     );
 
     if (!isPasswordValid) {
@@ -69,7 +63,7 @@ export const login = async (req, res, next) => {
     });
 
     // @TODO uncomment once implemented
-    // await sendConfirmationEmail(email);
+    // await UserService.sendConfirmationEmail(email);
 
     return res.json(user);
   } catch (e) {
@@ -101,7 +95,7 @@ export const current = (req, res) => {
 
 export const resetPassword = async (req, res) => {
   const { email } = req.body;
-  const user = await getUserByEmail(email);
+  const user = await UserService.getUserByEmail(email);
 
   if (!user) {
     return res.json({});
@@ -109,7 +103,7 @@ export const resetPassword = async (req, res) => {
 
   const token = createToken({ email }, EXPIRE_PASSWORD_RESET);
 
-  await sendPasswordResetEmail(email, token);
+  await UserService.sendPasswordResetEmail(email, token);
 
   return res.json({});
 };
