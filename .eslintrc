@@ -1,18 +1,29 @@
 {
   "parser": "babel-eslint",
-  "extends": ["airbnb-base" , "plugin:react/all", "plugin:prettier/recommended", "prettier", "prettier/react"],
+  "extends": [
+    "airbnb-base",
+    "plugin:react/all",
+    "plugin:prettier/recommended",
+    "prettier",
+    "prettier/react"
+  ],
   "env": {
     "browser": true,
     "node": true
   },
-  "plugins": [
-    "react",
-    "prettier",
-    "react-hooks"
-  ],
+  "plugins": ["react", "prettier", "react-hooks"],
   "settings": {
     "react": {
       "version": "detect"
+    },
+    "import/resolver": {
+      "alias": {
+        "map": [
+          ["@shared", "./server/shared"],
+          ["@components", "./server/components"]
+        ],
+        "extensions": [".js"]
+      }
     }
   },
   "rules": {

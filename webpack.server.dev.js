@@ -22,4 +22,10 @@ module.exports = {
   },
   plugins: [new NodemonPlugin()],
   externals: [nodeExternals()],
+  resolve: {
+    alias: {
+      '@shared': path.resolve(__dirname, './server', 'shared'),
+      '@components': path.resolve(__dirname, './server', 'components'),
+    },
+  },
 };
