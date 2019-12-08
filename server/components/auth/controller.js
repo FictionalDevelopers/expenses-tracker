@@ -130,3 +130,17 @@ export const verifyPasswordResetToken = async (req, res) => {
     return res.status(401).json({ error: e.message });
   }
 };
+
+export const updatePassword = async (req, res) => {
+  const { email, password } = req.body;
+
+  const user = await UserService.getUserByEmail(email);
+
+  if (!user) {
+    return res.status(400).json({ error: { email: 'Invalid email' } });
+  }
+
+  await UserService.setPasswordByEmail(email, password);
+
+  return res.json({});
+};
