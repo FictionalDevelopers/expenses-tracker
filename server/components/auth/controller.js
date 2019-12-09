@@ -1,5 +1,4 @@
 import { validationResult } from 'express-validator';
-import { STATUS_CODES } from 'http';
 
 import { EXPIRE_PASSWORD_RESET, EXPIRE_TIME } from '@common/constants/time';
 import { UserService } from '@components/users';
@@ -80,19 +79,9 @@ export const logout = (req, res) => {
 };
 
 export const current = (req, res) => {
-  const { [TOKEN_COOKIE_NAME]: token } = req.signedCookies;
+  const { user } = req;
 
-  if (!token) {
-    return res.status(401).json({ error: STATUS_CODES[401] });
-  }
-
-  try {
-    const { user } = verifyToken(token);
-
-    return res.json(user);
-  } catch (e) {
-    return res.status(401).json({ error: STATUS_CODES[401] });
-  }
+  return res.json(user);
 };
 
 export const resetPassword = async (req, res) => {
