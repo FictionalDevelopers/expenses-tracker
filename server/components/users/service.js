@@ -50,3 +50,17 @@ export const sendPasswordResetEmail = (email, token) => {
     },
   });
 };
+
+export const setPasswordByEmail = (email, password) => {
+  const salt = genRandomString(32);
+
+  return UserModel.updateOne(
+    { email },
+    {
+      $set: {
+        passwordHash: getHmac(password, salt + DB_SALT),
+        passwordSalt: salt,
+      },
+    },
+  );
+};

@@ -1,9 +1,11 @@
 import { validationResult } from 'express-validator';
 import { STATUS_CODES } from 'http';
 
-import { EXPIRE_TIME, EXPIRE_PASSWORD_RESET } from '@shared/constants/time';
+import { EXPIRE_PASSWORD_RESET, EXPIRE_TIME } from '@shared/constants/time';
 import { UserService } from '@components/users';
+
 import { createToken, verifyToken } from './service';
+import { PASSWORD_RESET_TOKEN } from './constants';
 
 const { TOKEN_COOKIE_NAME } = process.env;
 
@@ -101,9 +103,44 @@ export const resetPassword = async (req, res) => {
     return res.json({});
   }
 
-  const token = createToken({ email }, EXPIRE_PASSWORD_RESET);
+  const token = createToken(
+    {
+      type: PASSWORD_RESET_TOKEN,
+      email,
+    },
+    EXPIRE_PASSWORD_RESET,
+  );
 
   await UserService.sendPasswordResetEmail(email, token);
+
+  return res.json({});
+};
+
+export const verifyPasswordResetToken = async (req, res) => {
+  const { token } = req.params;
+  try {
+    const { type, email } = verifyToken(token);
+
+    if (type !== PASSWORD_RESET_TOKEN) {
+      return res.status(401).json({ error: 'invalid token' });
+    }
+
+    return res.json({ email });
+  } catch (e) {
+    return res.status(401).json({ error: e.message });
+  }
+};
+
+export const updatePassword = async (req, res) => {
+  const { email, password } = req.body;
+
+  const user = await UserService.getUserByEmail(email);
+
+  if (!user) {
+    return res.status(400).json({ error: { email: 'Invalid email' } });
+  }
+
+  await UserService.setPasswordByEmail(email, password);
 
   return res.json({});
 };

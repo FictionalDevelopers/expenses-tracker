@@ -1,6 +1,7 @@
 import { body } from 'express-validator';
+import { respondOnValidationError } from '@shared/middlewares';
 
-export const validatePassword = () =>
+const validatePassword = () =>
   body('password')
     .exists({
       checkNull: true,
@@ -8,7 +9,7 @@ export const validatePassword = () =>
     })
     .withMessage('Password is required field');
 
-export const validateEmail = () =>
+const validateEmail = () =>
   body('email')
     .exists({
       checkNull: true,
@@ -18,4 +19,37 @@ export const validateEmail = () =>
     .isEmail()
     .withMessage('Invalid email');
 
-export const validateUser = () => [validatePassword(), validateEmail()];
+export const validateUserRegistration = () => [
+  validatePassword(),
+  validateEmail(),
+  respondOnValidationError,
+];
+
+export const validatePasswordReset = () => [
+  validateEmail(),
+  respondOnValidationError,
+];
+
+export const validatePasswordUpdate = () => [
+  validateEmail(),
+  validatePassword(),
+  body('confirmation')
+    .exists({
+      checkNull: true,
+      checkFalsy: true,
+    })
+    .withMessage('Password confirmation is required field')
+
+    // eslint-disable-next-line consistent-return
+    .custom((confirmation, { req }) => {
+      const {
+        body: { password },
+      } = req;
+      if (confirmation !== password) {
+        return Promise.reject(new Error('Passwords do not match'));
+      }
+
+      return true;
+    }),
+  respondOnValidationError,
+];

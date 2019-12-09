@@ -1,14 +1,30 @@
 import { Router } from 'express';
 
-import { validateUser, validateEmail } from './validation';
-import { create, login, logout, resetPassword, current } from './controller';
+import {
+  validatePasswordReset,
+  validatePasswordUpdate,
+  validateUserRegistration,
+} from './validation';
+import * as AuthController from './controller';
 
 const router = Router();
 
-router.post('/register', validateUser(), create);
-router.post('/login', login);
-router.get('/logout', logout);
-router.get('/current', current);
-router.post('/reset-password', validateEmail(), resetPassword);
+router.get('/logout', AuthController.logout);
+router.get('/current', AuthController.current);
+router.get('/reset-password/:token', AuthController.verifyPasswordResetToken);
+
+router.put(
+  '/update-password',
+  validatePasswordUpdate(),
+  AuthController.updatePassword,
+);
+
+router.post('/register', validateUserRegistration(), AuthController.create);
+router.post('/login', AuthController.login);
+router.post(
+  '/reset-password',
+  validatePasswordReset(),
+  AuthController.resetPassword,
+);
 
 export default router;
