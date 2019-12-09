@@ -1,5 +1,7 @@
 import { Router } from 'express';
 
+import { authorized } from '@common/middlewares';
+
 import {
   validatePasswordReset,
   validatePasswordUpdate,
@@ -10,7 +12,7 @@ import * as AuthController from './controller';
 const router = Router();
 
 router.get('/logout', AuthController.logout);
-router.get('/current', AuthController.current);
+router.get('/current', authorized, AuthController.current);
 router.get('/reset-password/:token', AuthController.verifyPasswordResetToken);
 
 router.put(
