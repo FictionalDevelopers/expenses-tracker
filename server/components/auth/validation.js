@@ -1,5 +1,5 @@
 import { body } from 'express-validator';
-import { respondOnValidationError } from '@shared/middlewares';
+import { respondOnValidationError } from '@common/middlewares';
 
 const validatePassword = () =>
   body('password')

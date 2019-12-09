@@ -1,7 +1,7 @@
 import { validationResult } from 'express-validator';
 import { STATUS_CODES } from 'http';
 
-import { EXPIRE_PASSWORD_RESET, EXPIRE_TIME } from '@shared/constants/time';
+import { EXPIRE_PASSWORD_RESET, EXPIRE_TIME } from '@common/constants/time';
 import { UserService } from '@components/users';
 
 import { createToken, verifyToken } from './service';
