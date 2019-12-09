@@ -4,7 +4,7 @@
     "allowSyntheticDefaultImports": false,
     "baseUrl": "./",
     "paths": {
-      "@shared/*": ["server/shared/*"],
+      "@common/*": ["server/common/*"],
       "@components/*": ["server/Components/*"]
     }
   },

@@ -2,7 +2,7 @@ import express, { json } from 'express';
 import morgan from 'morgan';
 import cookieParser from 'cookie-parser';
 
-import env from '@shared/utils/env';
+import env from '@common/utils/env';
 
 import ApiRouter from './api-router';
 import createDbConnection from './db';

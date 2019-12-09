@@ -24,7 +24,7 @@ module.exports = {
   externals: [nodeExternals()],
   resolve: {
     alias: {
-      '@shared': path.resolve(__dirname, './server', 'shared'),
+      '@common': path.resolve(__dirname, './server', 'common'),
       '@components': path.resolve(__dirname, './server', 'components'),
     },
   },

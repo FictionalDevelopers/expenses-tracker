@@ -1,12 +1,12 @@
-import { genRandomString, getHmac } from '@shared/utils/hash';
-import getSiteUrl from '@shared/utils/getSiteUrl';
+import { genRandomString, getHmac } from '@common/utils/hash';
+import getSiteUrl from '@common/utils/getSiteUrl';
 
 import UserModel from './model';
 
 import {
   sendUsingTemplate,
   TEMPLATE_NAMES,
-} from '../../shared/services/Mailer';
+} from '../../common/services/Mailer';
 
 const { DB_SALT } = process.env;
 

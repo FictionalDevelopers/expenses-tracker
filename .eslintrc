@@ -19,7 +19,7 @@
     "import/resolver": {
       "alias": {
         "map": [
-          ["@shared", "./server/shared"],
+          ["@common", "./server/common"],
           ["@components", "./server/components"]
         ],
         "extensions": [".js"]
