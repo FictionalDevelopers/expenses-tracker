@@ -26,7 +26,6 @@ describe('common - middlewares - authorized', () => {
         [TOKEN_COOKIE_NAME]: token,
       },
     };
-    const next = {};
 
     authorized(req, res, next);
 

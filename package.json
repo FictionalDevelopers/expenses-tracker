@@ -10,7 +10,7 @@
     "format": "prettier --write \"src/**/*.js\"",
     "server": "webpack --config webpack.server.dev.js",
     "test:unit": "jest --config jest.config.unit.js",
-    "test": "yarn test:unit --ci --coverage"
+    "test": "yarn test:unit --color --ci --coverage"
   },
   "repository": {
     "type": "git",
