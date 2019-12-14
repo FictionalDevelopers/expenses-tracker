@@ -1,7 +1,6 @@
-import { STATUS_CODES } from 'http';
-
 import { TOKEN_COOKIE_NAME } from '@common/config';
 import { AuthService } from '@components/auth';
+import { ApiError, UnauthorizedError } from '@common/Errors';
 
 function authorized(req, res, next) {
   const {
@@ -9,7 +8,7 @@ function authorized(req, res, next) {
   } = req;
 
   if (!token) {
-    return res.status(401).json({ error: STATUS_CODES[401] });
+    return next(new UnauthorizedError());
   }
 
   try {
@@ -18,7 +17,7 @@ function authorized(req, res, next) {
 
     return next();
   } catch (e) {
-    return res.status(400).json({ error: e.message });
+    return next(new ApiError(e.message));
   }
 }
 

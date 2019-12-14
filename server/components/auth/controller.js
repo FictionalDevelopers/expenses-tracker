@@ -1,6 +1,5 @@
-import { validationResult } from 'express-validator';
-
 import { EXPIRE_PASSWORD_RESET, EXPIRE_TIME } from '@common/constants/time';
+import { ApiError } from '@common/Errors';
 import { UserService } from '@components/users';
 
 import { createToken, verifyToken } from './service';
@@ -10,15 +9,10 @@ const { TOKEN_COOKIE_NAME } = process.env;
 
 export const create = async (req, res, next) => {
   try {
-    const errors = validationResult(req);
-    if (!errors.isEmpty()) {
-      return res.status(400).json({ errors: errors.mapped() });
-    }
-
     const { email, password } = req.body;
 
     if (await UserService.isEmailTaken(email)) {
-      return res.status(400).json({ error: 'This email is taken' });
+      return next(new ApiError('This email is taken'));
     }
 
     const user = await UserService.createUser(email, password);
@@ -42,7 +36,7 @@ export const login = async (req, res, next) => {
     const user = await UserService.getUserByEmail(email);
 
     if (!user) {
-      return res.status(400).json({ error: { email: 'Invalid email' } });
+      return next(new ApiError({ email: 'Invalid email' }));
     }
 
     const isPasswordValid = UserService.isPasswordSame(
@@ -52,7 +46,7 @@ export const login = async (req, res, next) => {
     );
 
     if (!isPasswordValid) {
-      return res.status(400).json({ error: { password: 'Invalid password' } });
+      return next(new ApiError({ password: 'Invalid password' }));
     }
 
     const token = createToken({ user }, EXPIRE_TIME);
@@ -120,13 +114,13 @@ export const verifyPasswordResetToken = async (req, res) => {
   }
 };
 
-export const updatePassword = async (req, res) => {
+export const updatePassword = async (req, res, next) => {
   const { email, password } = req.body;
 
   const user = await UserService.getUserByEmail(email);
 
   if (!user) {
-    return res.status(400).json({ error: { email: 'Invalid email' } });
+    return next(new ApiError({ email: 'Invalid email' }));
   }
 
   await UserService.setPasswordByEmail(email, password);
