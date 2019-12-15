@@ -5,6 +5,7 @@ import cookieParser from 'cookie-parser';
 import env from '@common/utils/env';
 
 import ApiRouter from './api-router';
+import errorHandler from './errorHandler';
 import createDbConnection from './db';
 
 const { PORT, COOKIE_SECRET } = env;
@@ -18,4 +19,6 @@ app.use(cookieParser(COOKIE_SECRET));
 app.use(json());
 app.use('/api', ApiRouter);
 
-app.listen(port, () => console.log(`Listening on port ${PORT}`));
+app.use(errorHandler);
+
+app.listen(port, () => console.log(`Listening on port ${PORT}`)); // eslint-disable-line no-console
