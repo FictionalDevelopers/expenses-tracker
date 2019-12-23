@@ -7,17 +7,17 @@ import store from './store';
 import history from './history';
 
 import App from './App';
-import { purpleTheme } from './common/colorThemes/purpleTheme';
+import { tealTheme } from './common/colorThemes/tealTheme';
 
 const root = document.querySelector('#root');
 
 render(
   <Provider store={store}>
-    <MuiThemeProvider theme={purpleTheme}>
+    <MuiThemeProvider theme={tealTheme}>
       <Router history={history}>
         <App />
       </Router>
     </MuiThemeProvider>
   </Provider>,
-  root
+  root,
 );

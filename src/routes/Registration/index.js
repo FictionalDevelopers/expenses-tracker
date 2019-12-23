@@ -1,32 +1,25 @@
 import React from 'react';
 import { connect } from 'react-redux';
-import { Link } from 'react-router-dom';
+import { compose } from 'redux';
 import { Field, reduxForm } from 'redux-form';
 import PropTypes from 'prop-types';
 import { Button, Typography } from '@material-ui/core';
-import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
-import { faChevronLeft } from '@fortawesome/free-solid-svg-icons';
 
-import { styles } from './styles';
+import { makeStyles } from '@material-ui/core/styles';
+import styles from './styles';
 import { signUp } from '../../state/auth/actions';
-import renderTextField from './renderTextField';
-import validate from './validate';
+import renderField from './renderField';
+import { email, minValue, required } from '../../common/validation';
+
+const useStyles = makeStyles(styles);
+const minValue3 = minValue(4);
 
 const Registration = ({ handleSubmit, signUp }) => {
-  const styleList = styles();
-
-  const onSubmit = formValues => {
-    signUp(formValues);
-  };
+  const styleList = useStyles();
 
   return (
     <div className={styleList.container}>
-      <div className={styleList.backBtn}>
-        <Link to="/">
-          <FontAwesomeIcon icon={faChevronLeft} size="2x" />
-        </Link>
-      </div>
-      <form className={styleList.form} onSubmit={handleSubmit(onSubmit)}>
+      <form className={styleList.form} onSubmit={handleSubmit(signUp)}>
         <Typography variant="h4">Sign up</Typography>
         <Field
           name="email"
@@ -36,7 +29,8 @@ const Registration = ({ handleSubmit, signUp }) => {
           variant="outlined"
           required
           fullWidth
-          component={renderTextField}
+          validate={[required, email]}
+          component={renderField}
         />
         <Field
           name="password"
@@ -47,7 +41,8 @@ const Registration = ({ handleSubmit, signUp }) => {
           variant="outlined"
           required
           fullWidth
-          component={renderTextField}
+          validate={[required, minValue3]}
+          component={renderField}
         />
         <Button
           type="submit"
@@ -68,11 +63,7 @@ Registration.propTypes = {
   signUp: PropTypes.func.isRequired,
 };
 
-const formWrapper = reduxForm({ form: 'registrationForm', validate })(
-  Registration
-);
-
-export default connect(
-  null,
-  { signUp }
-)(formWrapper);
+export default compose(
+  reduxForm({ form: 'registrationForm' }),
+  connect(null, { signUp }),
+)(Registration);

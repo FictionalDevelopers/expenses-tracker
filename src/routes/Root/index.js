@@ -23,7 +23,4 @@ const Root = props => {
 
 Root.propTypes = propTypes;
 
-export default connect(
-  null,
-  { logout }
-)(Root);
+export default connect(null, { logout })(Root);
